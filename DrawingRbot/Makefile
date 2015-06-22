@@ -60,9 +60,8 @@ MAIN_OUT_LSS = $(MAIN_OUT).lss
 
 # all
 
-#all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
-
 all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
+
 # main
 
 MAIN_OBJS = \
