@@ -18,7 +18,7 @@
 #include "MotorControl.h"
 #include "Zigbee.h"
 #include "JoyStick.h"
-#include <math.h>
+#include "math.h"
 
 #include "ADC.h"
 

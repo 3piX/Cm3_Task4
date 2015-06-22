@@ -1,10 +1,10 @@
 # setup
 # modified by zerom for WinARM 8/2010
 
-COMPILE_OPTS = -mcpu=cortex-m3 -mfloat-abi=softfb -mthumb -Wall -g -Os -fno-common 
+COMPILE_OPTS = -mcpu=cortex-m3 -mfloat-abi=soft -mthumb -Wall -g -Os -fno-common 
 INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IHW/inc -IAPP/inc 
 #INCLUDE_DIRS = -I.
-LIBRARY_DIRS = -Lstm32f10x_lib
+LIBRARY_DIRS = -Lstm32f10x_lib C:\WinARM\arm-eabi\lib\thumb2\libm.a
 
 
 
@@ -34,6 +34,7 @@ AS = $(TCHAIN_PREFIX)gcc
 ASFLAGS = $(COMPILE_OPTS) -c 
 
 LD = $(TCHAIN_PREFIX)gcc
+
 LDFLAGS = -Wl,--gc-sections,-Map=$@.map,-cref,-u,Reset_Handler $(INCLUDE_DIRS) $(LIBRARY_DIRS) -T stm32.ld 
 
 OBJCP = $(TCHAIN_PREFIX)objcopy
