@@ -1,10 +1,10 @@
 # setup
 # modified by zerom for WinARM 8/2010
 
-COMPILE_OPTS = -mcpu=cortex-m3 -mfloat-abi=softfp -mthumb -Wall -g -Os -fno-common
+COMPILE_OPTS = -mcpu=cortex-m3 -mfloat-abi=soft -mthumb -Wall -g -Os -fno-common 
 INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IHW/inc -IAPP/inc 
 #INCLUDE_DIRS = -I.
-LIBRARY_DIRS = -Lstm32f10x_lib C:\WinARM\arm-eabi\lib\thumb2\libm.a
+LIBRARY_DIRS = -Lstm32f10x_lib
 
 
 
@@ -16,7 +16,7 @@ TCHAIN_PREFIX=arm-eabi-
 #else ifeq ($(UNAME), Linux)
 #	TCHAIN_PREFIX=arm-none-eabi-
 #endif
-MATH_LIB=
+MATH_LIB=C:\WinARM\arm-eabi\lib\libm.a
 ifeq ($(UNAME), Linux)
 	TCHAIN_PREFIX=arm-none-eabi-
 	MATH_LIB=/usr/lib/arm-none-eabi/lib/libm.a
@@ -24,6 +24,7 @@ endif
 
 ifeq ($(UNAME), Darwin)
 	TCHAIN_PREFIX=arm-none-eabi-
+	MATH_LIB=/usr/lib/arm-none-eabi/lib/libm.a
 endif
 
 CC = $(TCHAIN_PREFIX)gcc
@@ -59,8 +60,9 @@ MAIN_OUT_LSS = $(MAIN_OUT).lss
 
 # all
 
-all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
+#all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
 
+all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
 # main
 
 MAIN_OBJS = \
