@@ -1,7 +1,7 @@
 # setup
 # modified by zerom for WinARM 8/2010
 
-COMPILE_OPTS = -mcpu=cortex-m3 -mthumb -Wall -g -Os -fno-common 
+COMPILE_OPTS = -mcpu=cortex-m3 -mfloat-abi=softfb -mthumb -Wall -g -Os -fno-common 
 INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IHW/inc -IAPP/inc 
 #INCLUDE_DIRS = -I.
 LIBRARY_DIRS = -Lstm32f10x_lib
@@ -69,6 +69,7 @@ MAIN_OBJS = \
  APP/src/MotorControl.o \
  APP/src/ADC.o \
  APP/src/Zigbee.o \
+  APP/src/JoyStick.o \
  
 $(MAIN_OUT_ELF): $(MAIN_OBJS) stm32f10x_lib/libstm32.a
 	$(LD) $(LDFLAGS) $(MAIN_OBJS) stm32f10x_lib/libstm32.a --output $@

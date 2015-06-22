@@ -86,7 +86,7 @@ void DXL_send_word(u8 devId, u8 add, u16 data)
 		DXL_TX(DXL_TX_com_buf[i]); // send data
 	}
 
-	for(i = 0; i < 7000; i++) // WAIT FOR RESPONSE from device! (Approx 50 -> 100 us)
+	for(i = 0; i < 1000; i++) // WAIT FOR RESPONSE from device! (Approx 50 -> 100 us)
 	{
 		asm("nop");
 	}
@@ -157,7 +157,7 @@ void DXL_read_byte(u8 devId, u8 add)
 		DXL_TX(DXL_TX_com_buf[i]); // send data
 	}
 
-	uDelay(100); // TIS CAN BE IMPLEMENTED SMARTER: WITH CRC CHECK etc.!!!
+	uDelay(1000); // TIS CAN BE IMPLEMENTED SMARTER: WITH CRC CHECK etc.!!!
 
 	/* DXL_RX_buff now contain the read message and error status:
 	 * DXL_RX_BUFF[0..1]: Preamble

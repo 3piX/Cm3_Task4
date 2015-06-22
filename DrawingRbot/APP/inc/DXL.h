@@ -19,3 +19,4 @@ void DXL_read_byte(u8 devId, u8 add);
 
 extern vu8 DXL_RX_com_buf[15];
 extern u8 DXL_TX_com_buf[15];
+extern vu32 DXL_RX_buff_index;
