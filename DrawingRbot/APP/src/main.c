@@ -101,12 +101,12 @@ int main(void)
 	{
 
 		readJoyStick();
-		alpha = (float)(joyStickBuff[JOY_DATA_BOT_MOTOR])*ticksToDegrees*(PI/180.0f);//*ticksToDegrees;
+/*		alpha = (float)(joyStickBuff[JOY_DATA_BOT_MOTOR])*ticksToDegrees*(PI/180.0f);//*ticksToDegrees;
 
 		beta = asinf((b*sinf(alpha))/a);
 
-		DXL_send_word(4, GOAL_POSITION_L, (beta)/ticksToDegrees);
-
+		DXL_send_word(5, GOAL_POSITION_L, (beta)/ticksToDegrees);
+*/
 		DXL_send_word(4, GOAL_POSITION_L, (joyStickBuff[JOY_DATA_BOT_MOTOR] - (JOY_BOT_INI - ARM_ALPHA_OFFSET)));
 
 

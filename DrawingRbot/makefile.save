@@ -1,3 +1,4 @@
+/usr/local/dev-arm/i386-Darwin-arm-gcc-4.8.2/arm-eabi/lib/libm.a 
 # setup
 # modified by zerom for WinARM 8/2010
 
@@ -24,8 +25,7 @@ endif
 
 ifeq ($(UNAME), Darwin)
 	TCHAIN_PREFIX=arm-none-eabi-
-	MATH_LIB=/usr/local/dev-arm/i386-Darwin-arm-gcc-4.8.2/arm-eabi/lib/libm.a 
-
+	MATH_LIB=/usr/lib/arm-none-eabi/lib/libm.a
 endif
 
 CC = $(TCHAIN_PREFIX)gcc
@@ -61,8 +61,9 @@ MAIN_OUT_LSS = $(MAIN_OUT).lss
 
 # all
 
-all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
+#all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
 
+all: $(MAIN_OUT_ELF) $(MAIN_OUT_HEX) $(MAIN_OUT_BIN) $(MAIN_OUT_LSS)
 # main
 
 MAIN_OBJS = \
