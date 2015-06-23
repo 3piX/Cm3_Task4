@@ -50,6 +50,8 @@ u8								IRsweepDone, sweepDirection = 0;
 vu16								count = 214;
 u8								rightTrackOffset;
 
+
+
 const u16 angleLUT[601] = {
 	#include "lookup.hex"
 };
@@ -62,7 +64,7 @@ void __ISR_DELAY(void);
 int main(void)
 {
 
-	u16 cnt = 0;
+	int cnt, tmpMoterVal = 0;
 
 	u16 j = 0;
     /* System Clocks Configuration */
@@ -81,7 +83,7 @@ int main(void)
 
 	USART_Configuration(USART_PC, Baudrate_PC);
 
-
+	initJoyStick();
 
 	DXL_RX_com_buf[14] = 0;
 
@@ -100,33 +102,70 @@ int main(void)
 		readJoyStick();
 
 
-
-		cnt = angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230];
+		if(1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230 < 0)
+		{
+			cnt = 614;
+		}
+		else
+		{
+			cnt = angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230];
+		}
 
 		DXL_send_word(5, GOAL_POSITION_L, cnt);
-
+		DXL_send_word(5, GOAL_POSITION_L, cnt);
+		DXL_send_word(5, GOAL_POSITION_L, cnt);
+		DXL_send_word(5, GOAL_POSITION_L, cnt);
 
 
 		cnt = 1024-(joyStickBuff[JOY_DATA_BOT_MOTOR] - (JOY_BOT_INI - ARM_ALPHA_OFFSET));
 
-		DXL_send_word(4, GOAL_POSITION_L, cnt);
+		if(joyStickBuff[JOY_DATA_TOP_BOT] == 1)
+		{
+
+			DXL_send_word(4, TORQUE_LIMIT_L, 100);
+			DXL_send_word(4, TORQUE_LIMIT_L, 100);
+
+			DXL_send_word(4, GOAL_POSITION_L, cnt);
+			DXL_send_word(4, GOAL_POSITION_L, cnt);
+			DXL_send_word(4, GOAL_POSITION_L, cnt);
+			DXL_send_word(4, GOAL_POSITION_L, cnt);
+
+			DXL_send_word(4, TORQUE_LIMIT_L, 1023);
+			DXL_send_word(4, TORQUE_LIMIT_L, 1023);
+
+		}
+		else
+		{
+			DXL_send_word(4, TORQUE_LIMIT_L, 100);
+			DXL_send_word(4, TORQUE_LIMIT_L, 100);
+
+			DXL_send_word(4, GOAL_POSITION_L, cnt-47);
+			DXL_send_word(4, GOAL_POSITION_L, cnt-47);
+			DXL_send_word(4, GOAL_POSITION_L, cnt-47);
+			DXL_send_word(4, GOAL_POSITION_L, cnt-47);
+
+			DXL_send_word(4, TORQUE_LIMIT_L, 1023);
+			DXL_send_word(4, TORQUE_LIMIT_L, 1023);
+		}
 
 
-
-
-		cnt = 1024-(511-(joyStickBuff[JOY_DATA_BOT_MOTOR] - angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230]));
-
-		//cnt = 511; //1024 - ((1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-204) +  angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230]);
-
-		DXL_send_word(1, GOAL_POSITION_L, cnt);
-
+			if(1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230 >= 0)
+			{
+				cnt = 1023-(511-((joyStickBuff[JOY_DATA_BOT_MOTOR]) - angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230]));
+				DXL_send_word(1, GOAL_POSITION_L, cnt);
+				DXL_send_word(1, GOAL_POSITION_L, cnt);
+				DXL_send_word(1, GOAL_POSITION_L, cnt);
+				DXL_send_word(1, GOAL_POSITION_L, cnt);
+			}
 
 
 
 		// Rotate
+		cnt = ((joyStickBuff[JOY_DATA_TOP_MOTOR] -JOY_TOP_INI)>>1) + ARM_ROTATE_OFFSET;
 
-		cnt = (joyStickBuff[JOY_DATA_TOP_MOTOR] - (JOY_TOP_INI - ARM_ROTATE_OFFSET));
-
+		DXL_send_word(8, GOAL_POSITION_L, cnt);
+		DXL_send_word(8, GOAL_POSITION_L, cnt);
+		DXL_send_word(8, GOAL_POSITION_L, cnt);
 		DXL_send_word(8, GOAL_POSITION_L, cnt);
 
 	}

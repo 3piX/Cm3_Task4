@@ -22,11 +22,12 @@
 #define JOY_DATA_BOT_BOT	3
 
 
-#define ARM_ALPHA_OFFSET	512+360
+#define ARM_ALPHA_OFFSET	512+340
 #define ARM_ROTATE_OFFSET	512
 extern u16 joyStickBuff[15];
 
 void readJoyStick();
+void initJoyStick();
 
 
 
