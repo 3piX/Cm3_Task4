@@ -18,7 +18,6 @@
 #include "MotorControl.h"
 #include "Zigbee.h"
 #include "JoyStick.h"
-#include <math.h>
 
 #include "ADC.h"
 
@@ -38,9 +37,6 @@
 #define PIN_LED_TX				GPIO_Pin_14
 #define PIN_LED_RX				GPIO_Pin_15
 
-
-#define PI (3.141592653589793)
-
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
@@ -53,11 +49,10 @@ u8								wallTrackSide = 0;
 u8								IRsweepDone, sweepDirection = 0;
 vu16								count = 214;
 u8								rightTrackOffset;
-float alpha,beta = 0.0f;
-float ticksToDegrees = 300/1024;
-float a;
-float b;
 
+const u16 angleLUT[601] = {
+	#include "lookup.hex"
+};
 
 void __ISR_DELAY(void);
 
@@ -101,19 +96,16 @@ int main(void)
 	{
 
 		readJoyStick();
-/*		alpha = (float)(joyStickBuff[JOY_DATA_BOT_MOTOR])*ticksToDegrees*(PI/180.0f);//*ticksToDegrees;
+		
 
-		beta = asinf((b*sinf(alpha))/a);
-
-		DXL_send_word(5, GOAL_POSITION_L, (beta)/ticksToDegrees);
-*/
+		DXL_send_word(5, GOAL_POSITION_L, angleLUT[joyStickBuff[JOY_DATA_BOT_MOTOR]]);
+		uDelay(100);
 		DXL_send_word(4, GOAL_POSITION_L, (joyStickBuff[JOY_DATA_BOT_MOTOR] - (JOY_BOT_INI - ARM_ALPHA_OFFSET)));
 
 
 	//	TxDWord16(joyStickBuff[JOY_DATA_BOT_MOTOR]-(JOY_BOT_INI - ARM_ALPHA_OFFSET));
 	//	TxDByte_PC("\r");
 		DXL_send_word(8, GOAL_POSITION_L, (joyStickBuff[JOY_DATA_TOP_MOTOR] - (JOY_TOP_INI - ARM_ROTATE_OFFSET)));
-
 
 	}
 
