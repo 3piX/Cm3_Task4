@@ -27,6 +27,8 @@ u16 joyStickBuff[15];
 void readJoyStick()
 {
 
+	int i = 0;
+
 
 	// Read TOP motor from joystick
 	while((DXL_RX_com_buf[4]))
