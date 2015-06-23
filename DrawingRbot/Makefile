@@ -4,7 +4,7 @@
 COMPILE_OPTS = -mcpu=cortex-m3 -mfloat-abi=soft -mthumb -Wall -g -Os -fno-common 
 INCLUDE_DIRS = -I. -Istm32f10x_lib/inc -IHW/inc -IAPP/inc 
 #INCLUDE_DIRS = -I.
-LIBRARY_DIRS = -Lstm32f10x_lib
+LIBRARY_DIRS = -Lstm32f10x_lib 
 
 
 
@@ -16,7 +16,7 @@ TCHAIN_PREFIX=arm-eabi-
 #else ifeq ($(UNAME), Linux)
 #	TCHAIN_PREFIX=arm-none-eabi-
 #endif
-MATH_LIB=C:\WinARM\arm-eabi\lib\libm.a
+MATH_LIB=C:/WinARM/arm-eabi/lib/thumb2/libm.a
 ifeq ($(UNAME), Linux)
 	TCHAIN_PREFIX=arm-none-eabi-
 	MATH_LIB=/usr/lib/arm-none-eabi/lib/libm.a
@@ -27,7 +27,7 @@ ifeq ($(UNAME), Darwin)
 	MATH_LIB=/usr/lib/arm-none-eabi/lib/libm.a
 endif
 
-CC = $(TCHAIN_PREFIX)gcc
+CC = $(TCHAIN_PREFIX)gcc 
 CFLAGS = $(COMPILE_OPTS) $(INCLUDE_DIRS) 
 
 CXX = $(TCHAIN_PREFIX)g++
@@ -36,7 +36,7 @@ CXXFLAGS = $(COMPILE_OPTS) $(INCLUDE_DIRS)
 AS = $(TCHAIN_PREFIX)gcc
 ASFLAGS = $(COMPILE_OPTS) -c 
 
-LD = $(TCHAIN_PREFIX)gcc
+LD = $(TCHAIN_PREFIX)gcc 
 
 LDFLAGS = -Wl,--gc-sections,-Map=$@.map,-cref,-u,Reset_Handler $(INCLUDE_DIRS) $(LIBRARY_DIRS) -T stm32.ld 
 
@@ -76,7 +76,7 @@ MAIN_OBJS = \
  APP/src/JoyStick.o \
  
 $(MAIN_OUT_ELF): $(MAIN_OBJS) stm32f10x_lib/libstm32.a
-	$(LD) $(LDFLAGS) $(MAIN_OBJS) stm32f10x_lib/libstm32.a $(MATH_LIB) --output $@
+	$(LD) $(LDFLAGS) $(MAIN_OBJS) stm32f10x_lib/libstm32.a stm32f10x_lib/libm.a $(MATH_LIB) --output $@
 
 $(MAIN_OUT_HEX): $(MAIN_OUT_ELF)
 	$(OBJCP) $(OBJCPFLAGS_HEX) $< $@

@@ -53,10 +53,10 @@ u8								wallTrackSide = 0;
 u8								IRsweepDone, sweepDirection = 0;
 vu16								count = 214;
 u8								rightTrackOffset;
-float alpha,beta = 0.0f;
-float ticksToDegrees = 300/1024;
-float a;
-float b;
+double alpha,beta = 0.0f;
+double ticksToDegrees = 300/1024;
+double a;
+double b;
 
 
 void __ISR_DELAY(void);
@@ -101,9 +101,9 @@ int main(void)
 	{
 
 		readJoyStick();
-		alpha = (float)(joyStickBuff[JOY_DATA_BOT_MOTOR])*ticksToDegrees*(PI/180.0f);//*ticksToDegrees;
+		alpha = (double)(joyStickBuff[JOY_DATA_BOT_MOTOR])*ticksToDegrees*(PI/180.0);//*ticksToDegrees;
 
-		beta = asinf((b*sinf(alpha))/a);
+		beta = asin((b*sin(alpha))/a);
 
 		DXL_send_word(4, GOAL_POSITION_L, (beta)/ticksToDegrees);
 
