@@ -97,11 +97,12 @@ int main(void)
 
 		readJoyStick();
 
-		DXL_send_word(5, GOAL_POSITION_L, angleLUT[joyStickBuff[JOY_DATA_BOT_MOTOR]]);
-		uDelay(100);
-		DXL_send_word(4, GOAL_POSITION_L, (joyStickBuff[JOY_DATA_BOT_MOTOR] - (JOY_BOT_INI - ARM_ALPHA_OFFSET)));
+		DXL_send_word(5, GOAL_POSITION_L, angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230]);
+		//TxDWord16(1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-204);
+		//uDelay(100);
+		DXL_send_word(4, GOAL_POSITION_L, 1024-(joyStickBuff[JOY_DATA_BOT_MOTOR] - (JOY_BOT_INI - ARM_ALPHA_OFFSET)));
 
-
+		DXL_send_word(1, GOAL_POSITION_L, 1024-(joyStickBuff[JOY_DATA_BOT_MOTOR] - angleLUT[1024-joyStickBuff[JOY_DATA_BOT_MOTOR]-230]));
 	//	TxDWord16(joyStickBuff[JOY_DATA_BOT_MOTOR]-(JOY_BOT_INI - ARM_ALPHA_OFFSET));
 	//	TxDByte_PC("\r");
 		DXL_send_word(8, GOAL_POSITION_L, (joyStickBuff[JOY_DATA_TOP_MOTOR] - (JOY_TOP_INI - ARM_ROTATE_OFFSET)));
