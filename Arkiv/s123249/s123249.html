@@ -1,15 +1,18 @@
 <!DOCTYPE HTML>
+<center>
 <h1><i>Stabbie</i> - a drawing bot</h1>
 <div><img src="frontimage.png" height='400px' style="margin-bottom:0;"/></div>
 
 Responsible: Mathias Grelck Johnsen (s123249)<br>
 Group: Cm^3<br>
 Course: Modular Robotics (31384) in June 2015
+
 <br><br>
 <iframe width="560" height="315" 
 src="https://www.youtube.com/embed/m3KSRvTtEek" 
 frameborder="0" allowfullscreen>
 </iframe>
+</center>
 <br>
 <h2>Abstract</h2>
 The drawing bot, nicknamed <i>Stabbie</i> is easily controlled with a joystick. The purpose was to create a remotely operated robot arm capable of sustaining its head levelled at a fixed height throughout its range of operation. This makes it possible to draw on a flat surface with even pressure using a pencil.
@@ -23,9 +26,10 @@ The task is to create an interacting robot which is judged on the basis of the f
 </ul>
 The drawing robot should thus be able to engage the user, by presenting a challenge which is sufficiently difficult, to allow for a progression in the user's skillset in handling the robot, and ultimately make the user feel in a state of <i>flow</i>[Lecture 9, D. J. Christensen, link[1]] To adress this criteria, a game has been developed where the user must complete a maze as fast as possible without touching the edges of the maze. 
 A set of mazes has been created using an online maze generator[2] and edited in Adobe Photoshop in order to comply with the circular 2 dimensional system of the robotarm. See example in Figure 1.
-
+<center>
 <div><div>
 <img src="maze7.png" height='180px' style="margin-bottom:0;"/></div><div><b>Figure 1:</b> Maze example.</div></div>
+</center>
 <p>
 We believe that <i>Stabbie</i> deliver a great experience in playfulness because of this game. 
 The two other criteria are purely up to the user to evaluate, as we, of cause, have tried our best in designing <i>Stabbie</i>.
@@ -33,22 +37,31 @@ The two other criteria are purely up to the user to evaluate, as we, of cause, h
 <h2>Levelling the head</h2>
 The head of the robot arm is levelled by calculating the angle, <i>beta</i> and <i>gamma</i>, of motor B and C from the variable angle, <i>alpha</i>, of motor A. This is done by simple trigonometric calculations aimed toward maintaining an othogonal relationship between the height of motor B, <i>h</i>, and the distance between motor A and C. See Figure 2.
 <p>
+<center>
 <div><div>
 <img src="Stabbie_geometry.png" height='180px' style="margin-bottom:0;"/></div><div><img src="equations.png" height='180px' style="margin-bottom:0;"/>
 </div><div><b>Figure 2:</b> Trigonometric calculations of motor angles for motor B and C based on the variable angle of motor A.</div></div>
+</center>
 <p>
 This trigonometric property is used to calculate all possible integer encoder values such that they can be accessed directly in a LookUp Table (LUT) by the written C program. See Figure 3.
 <p>
+<center>
 <div><div>
 <img src="calcplot.png" height='300px' style="margin-bottom:0;"/></div><div><b>Figure 3:</b> Plot of trigonometric calculations. The blue line shows the integer values stored in a LUT to be used in the written C program.</div></div>
+</center>
 
 <h2>System stability</h2>
 The motor's movements have been filtered using a simple lowpass filter which in effect ignores changes in displacement larger than a suitable value determined empirically. This also means that it's not possible to move the arm faster than this certain value allows. This has been observed to not be a problem when users solve the mazes.
 The dynamixel motors have a PID controller build in to the motorcontrol, so further filtering was not necessary for the motors to run smooth enough for the purpose of this game. We don't want to make it too easy, now do we?
 
 <h2>Program structure</h2>
-The overall program structure is based on the three preceeding tasks and not much has been changed in terms of stateflow or package structure. 
-
+The overall program structure is based on the three preceeding tasks and not much has been changed in terms of package structure. A flowchart has been made to show how the motor react on the joystick movement inputs. 
+See Figure 4.  
+<p>
+<center>
+<div><div>
+<img src="Task4_flowdiagram.png" height='400px' style="margin-bottom:0;"/></div><div><b>Figure 4:</b>Flowchart diagram showing the behaviour of <i>Stabbie</i></div></div>
+</center>
 
 <h2>Results</h2>
 <i>Stabbie</i> performed well in all areas, even winning <i>Design and Implementation</i> with a score of 4.6 out of 5.
