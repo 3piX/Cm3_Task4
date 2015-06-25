@@ -47,7 +47,7 @@ u16								ADCres_buf_index = 0;
 u16 							diff = 0;
 u8								wallTrackSide = 0;
 u8								IRsweepDone, sweepDirection = 0;
-vu16								count = 214;
+vu16							count = 214;
 u8								rightTrackOffset;
 
 

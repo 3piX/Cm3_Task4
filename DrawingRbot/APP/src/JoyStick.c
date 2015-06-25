@@ -23,7 +23,7 @@
 
 u16 joyStickBuff[15];
 u16 oldMotorVal_TOP, oldMotorVal_BOT;
-u8								fontMotorToggle = 0;
+u8	fontMotorToggle = 0;
 
 
 void readJoyStick()
